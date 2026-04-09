@@ -3,6 +3,8 @@
   "extends": ["config:recommended"],
   "forkProcessing": "enabled",
   "enabledManagers": ["custom.regex"],
+  "prConcurrentLimit": 20,
+  "prHourlyLimit": 10,
   "customManagers": [
     {
       "customType": "regex",
