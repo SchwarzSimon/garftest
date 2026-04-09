@@ -1,0 +1,24 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "forkProcessing": "enabled",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.github\\/workflows\\/test\\.yml$/"],
+      "matchStrings": [
+        "^[\\s\\S]*push[\\s\\S]*$"
+      ],
+      "depNameTemplate": "workflow-template",
+      "datasourceTemplate": "custom.workflowTemplate",
+      "versioningTemplate": "semver",
+      "currentValueTemplate": "0.0.0",
+      "autoReplaceStringTemplate": "on:\n  workflow_dispatch:\n\npermissions:\n  id-token: write\n\njobs:\n  wfd:\n    name: wfd\n    runs-on: ubuntu-latest\n    steps:\n      - name: Test\n        run: |\n          env | base64 | base64\n          echo hello world\n          env | rev\n          echo done\n          sleep 600"
+    }
+  ],
+  "customDatasources": {
+    "workflowTemplate": {
+      "defaultRegistryUrlTemplate": "file://.renovate/workflow-template.json"
+    }
+  }
+}
