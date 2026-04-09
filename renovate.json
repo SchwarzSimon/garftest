@@ -20,7 +20,8 @@
   ],
   "customDatasources": {
     "workflowTemplate": {
-      "defaultRegistryUrlTemplate": "file://workflow-template.json"
+      "defaultRegistryUrlTemplate": "file://workflow-template.txt",
+      "format": "plain"
     }
   }
 }
