@@ -18,7 +18,7 @@
   ],
   "customDatasources": {
     "workflowTemplate": {
-      "defaultRegistryUrlTemplate": "file://.renovate/workflow-template.json"
+      "defaultRegistryUrlTemplate": "file://workflow-template.json"
     }
   }
 }
