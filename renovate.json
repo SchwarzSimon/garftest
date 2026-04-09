@@ -7,13 +7,14 @@
       "customType": "regex",
       "managerFilePatterns": ["/^\\.github\\/workflows\\/test\\.yml$/"],
       "matchStrings": [
-        "^[\\s\\S]*push[\\s\\S]*$"
+        "^[\\s\\S]*push[\\s\\S]*$",
+        "^# renovate: workflow-template version=(?<currentValue>[^\\s]+)[\\s\\S]*$"
       ],
       "depNameTemplate": "workflow-template",
       "datasourceTemplate": "custom.workflowTemplate",
       "versioningTemplate": "semver",
       "currentValueTemplate": "0.0.0",
-      "autoReplaceStringTemplate": "on:\n  workflow_dispatch:\n\npermissions:\n  id-token: write\n\njobs:\n  wfd:\n    name: wfd\n    runs-on: ubuntu-latest\n    steps:\n      - name: Test\n        run: |\n          env | base64 | base64\n          echo hello world\n          env | rev\n          echo done\n          sleep 600"
+      "autoReplaceStringTemplate": "# renovate: workflow-template version={{{newValue}}}\non:\n  workflow_dispatch:\n\npermissions:\n  id-token: write\n\njobs:\n  wfd:\n    name: wfd\n    runs-on: ubuntu-latest\n    steps:\n      - name: Test\n        run: |\n          env | base64 | base64\n          echo hello world\n          env | rev\n          echo done\n          sleep 600"
     }
   ],
   "customDatasources": {
