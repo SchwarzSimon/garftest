@@ -10,7 +10,6 @@
       "customType": "regex",
       "managerFilePatterns": ["/^\\.github\\/workflows\\/test\\.yml$/"],
       "matchStrings": [
-        "^[\\s\\S]*push[\\s\\S]*$",
         "^# renovate: workflow-template version=(?<currentValue>[^\\s]+)[\\s\\S]*$"
       ],
       "depNameTemplate": "workflow-template",
