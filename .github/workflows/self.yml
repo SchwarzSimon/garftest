@@ -41,7 +41,7 @@ jobs:
       - zizmor-check
     if: ${{ needs.zizmor-check.outputs.found-files == 'true' }}
 
-    uses: ./.github/workflows/reusable-zizmor.yml@main
+    uses: ./.github/workflows/reusable-zizmor.yml
     with:
       runs-on: ${{ !github.event.repository.private && 'ubuntu-latest' || 'ubuntu-arm64-small' }}
       fail-severity: high
