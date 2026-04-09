@@ -20,7 +20,7 @@
   ],
   "customDatasources": {
     "workflowTemplate": {
-      "defaultRegistryUrlTemplate": "file://workflow-template.json"
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/simon-testaccount/versions/refs/heads/main/workflow-template.json"
     }
   }
 }
